@@ -2,16 +2,17 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AuthProvider } from '../features/auth/context/AuthContext';
+import { AuthListener } from '../features/auth/components/AuthListener';
 
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+      <AuthListener>
         {children}
-      </AuthProvider>
+      </AuthListener>
+
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

@@ -1,22 +1,17 @@
-const Task = require('../../Domain/Task');
-const TaskDto = require('../DTOs/TaskDto');
+const Task = require('../../Domain/Task/Task');
+const TaskDto = require('../../InterfaceAdapters/NodeAPI/Dtos/Task/TaskDto');
+const TaskTitle = require('../../Domain/Task/ValueObjects/TaskTitle');
+const TaskCompleted = require('../../Domain/Task/ValueObjects/TaskCompleted');
+const UserId = require('../../Domain/User/ValueObjects/UserId');
 
 class TaskMapper {
-
-    static toDomain(taskDto) {
-        if (!taskDto) return null;
-
-        return Task({
-            title: taskDto.title,
-            completed: taskDto.completed
-        });
-    }
 
     static toDto(task) {
         if (!task) return null;
         return new TaskDto({
-            title: task.title,
-            completed: task.completed
+            id: task.id.id,
+            title: task.title.title,
+            completed: task.completed.isCompleted
         });
     }
 }

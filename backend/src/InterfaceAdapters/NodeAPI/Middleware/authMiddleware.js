@@ -11,7 +11,11 @@ module.exports = async function authMiddleware(req, res, next) {
 
   try {
     const decoded = await admin.auth().verifyIdToken(token);
-    req.user = decoded;
+
+    req.user = {
+      id: decoded.uid || decoded.sub,
+      email: decoded.email,
+    };
     next();
   } catch {
     res.status(401).json({ error: 'Invalid or expired token' });

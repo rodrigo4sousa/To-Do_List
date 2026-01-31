@@ -1,7 +1,7 @@
-const Task = require('../../Domain/Task/Task');
-const TaskTitle = require('../../Domain/Task/valueObjects/TaskTitle');
-const TaskCompleted = require('../../Domain/Task/valueObjects/TaskCompleted');
-const UserId = require('../../../Domain/Task/ValueObjects/UserId');
+const Task = require('../../../Domain/Task/Task');
+const TaskTitle = require('../../../Domain/Task/ValueObjects/TaskTitle');
+const TaskCompleted = require('../../../Domain/Task/ValueObjects/TaskCompleted');
+const UserId = require('../../../Domain/User/ValueObjects/UserId');
 
 const TaskDataMapper = {
     

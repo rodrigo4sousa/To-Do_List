@@ -3,12 +3,14 @@ import { TaskRepository, Task, CreateTaskData } from '../repositories/TaskReposi
 
 const taskRepository = new TaskRepository();
 
-export const useTasks = () => {
+export const useTasks = (enabled: boolean) => {
   return useQuery({
     queryKey: ['tasks'],
     queryFn: () => taskRepository.getTasks(),
+    enabled,
   });
 };
+
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient();

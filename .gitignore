@@ -5,6 +5,7 @@ node_modules/
 .env
 .env.local
 .env.*.local
+backend/credentials/firebase-service-account.json
 
 # Logs
 logs/

@@ -1,26 +1,12 @@
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
-
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../../../shared/firebase/firebase';
 
-export const authService = {
-  loginWithEmail(email: string, password: string) {
-    return signInWithEmailAndPassword(auth, email, password);
-  },
+export async function loginEmail(email: string, password: string) {
+  const result = await signInWithEmailAndPassword(auth, email, password);
+  return result.user;
+}
 
-  register(email: string, password: string) {
-    return createUserWithEmailAndPassword(auth, email, password);
-  },
-
-  loginWithGoogle() {
-    return signInWithPopup(auth, googleProvider);
-  },
-
-  logout() {
-    return signOut(auth);
-  },
-};
+export async function loginGoogle() {
+  const result = await signInWithPopup(auth, googleProvider);
+  return result.user;
+}

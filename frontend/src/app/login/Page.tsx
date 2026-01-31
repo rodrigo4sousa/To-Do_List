@@ -1,27 +1,29 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../features/auth/context/AuthContext';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '../../features/auth/store/useAuthStore';
+import { loginEmail, loginGoogle } from '../../features/auth/services/AuthService';
 
 export default function Login() {
-  const { loginEmail, loginGoogle } = useContext(AuthContext)!;
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleEmailLogin = async () => {
     try {
-      await loginEmail(email, password);
+      const user = await loginEmail(email, password);
+      setUser(user);               
       router.push('/tasks');
     } catch (error) {
       console.error('Login error:', error);
-      // You could add error state here
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
-      await loginGoogle();
+      const user = await loginGoogle();
+      setUser(user);               
       router.push('/tasks');
     } catch (error) {
       console.error('Google login error:', error);

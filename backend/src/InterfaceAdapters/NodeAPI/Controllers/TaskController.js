@@ -1,5 +1,3 @@
-const { CreateTaskDto } = require('../Dtos/Task/CreateTaskDto');
-
 class TaskController {
     constructor(taskService) {
         this.taskService = taskService;
@@ -9,17 +7,20 @@ class TaskController {
     //POST /tasks
     async createTask(req, res) {
         try {
-            const newTask = await this.taskService.createTask(new CreateTaskDto(req.body));
-            res.status(201).json(newTask);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+            const task = await this.taskService.createTask({
+                title: req.body.title,
+                userId: req.user.uid
+            });
+            res.status(201).json(task);
+        } catch (err) {
+            res.status(400).json({ error: err.message });   
         }
     }
 
     //GET /tasks
-    async getTasks(res) {
+    async getTasks(req, res) {
         try {
-            const tasks = await this.taskService.getTasks();
+            const tasks = await this.taskService.getTasks(req.user.uid);
             res.status(200).json(tasks);
             
         } catch (error) {

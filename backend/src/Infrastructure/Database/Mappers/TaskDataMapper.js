@@ -1,17 +1,10 @@
-// TaskDataMapper.js
-// Maps between Task domain model and Task data model (Mongoose)
-
-const Task = require('../../Domain/Task/Task');
-const TaskTitle = require('../../Domain/Task/valueObjects/TaskTitle');
-const TaskCompleted = require('../../Domain/Task/valueObjects/TaskCompleted');
-const UserId = require('../../../Domain/Task/ValueObjects/UserId');
+const Task = require('../../../Domain/Task/Task');
+const TaskTitle = require('../../../Domain/Task/ValueObjects/TaskTitle');
+const TaskCompleted = require('../../../Domain/Task/ValueObjects/TaskCompleted');
+const UserId = require('../../../Domain/User/ValueObjects/UserId');
 
 const TaskDataMapper = {
-    /**
-     * Converts a data model (Mongoose doc or plain object) to a Task domain entity
-     * @param {Object} data
-     * @returns {Task}
-     */
+    
     toDomain(data) {
         if (!data) return null;
         return new Task(
@@ -22,32 +15,21 @@ const TaskDataMapper = {
         );
     },
 
-    /**
-     * Converts a Task domain entity to a plain object for the data model
-     * @param {Task} task
-     * @returns {Object}
-     */
+    
     toDataModel(task) {
         return {
-            _id: task.id.value || task.id, // handle value object or string
-            title: task.title.value || task.title,
-            completed: task.completed.value || task.completed,
-            userId: task.userId.value || task.userId
+            _id: task.id.id, 
+            title: task.title.title,
+            completed: task.completed.isCompleted,
+            userId: task.userId.id
         };
     },
 
-    /**
-     * Converts a Task domain entity to a plain object for updating an existing data model
-     * @param {string} id
-     * @param {Task} task
-     * @returns {Object}
-     */
-    toExistingDataModel(id, task) {
+
+    toExistingDataModel(task) {
         return {
-            _id: id,
-            title: task.title.value || task.title,
-            completed: task.completed.value || task.completed,
-            userId: task.userId.value || task.userId
+            title: task.title.title,
+            completed: task.completed.isCompleted
         };
     }
 };

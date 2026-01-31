@@ -1,4 +1,3 @@
-
 class TaskRepositoryInterface {
     
     async save(task) {
