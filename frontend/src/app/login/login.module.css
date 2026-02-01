@@ -1,0 +1,249 @@
+/* Login Page Styles */
+
+/* Layout */
+.pageWrapper {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #eef2ff, #ffffff, #faf5ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.loginCard {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  width: 100%;
+  max-width: 24rem;
+  padding: 2.5rem;
+}
+
+/* Logo Section */
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logoIcon {
+  width: 4rem;
+  height: 4rem;
+  background: linear-gradient(to bottom right, #6366f1, #9333ea);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.logoIcon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #4f46e5, #9333ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.input:focus {
+  background-color: #ffffff;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+/* Buttons */
+.loginButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(to right, #6366f1, #9333ea);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.loginButton:hover:not(:disabled) {
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  transform: translateY(-1px);
+}
+
+.loginButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.dividerText {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+/* Google Button */
+.googleButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background-color: #ffffff;
+  color: #374151;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.googleButton:hover:not(:disabled) {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.googleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.googleIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Error Message */
+.errorMessage {
+  padding: 0.75rem 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.errorMessage svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Spinner */
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.footerLink {
+  color: #6366f1;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.footerLink:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.footerLink:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
