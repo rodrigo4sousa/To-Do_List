@@ -13,7 +13,7 @@ module.exports = async function authMiddleware(req, res, next) {
     const decoded = await admin.auth().verifyIdToken(token);
 
     req.user = {
-      id: decoded.uid || decoded.sub,
+      uid: decoded.uid || decoded.sub,
       email: decoded.email,
     };
     next();
