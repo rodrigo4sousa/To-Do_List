@@ -2,8 +2,6 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/src/shared/firebase/firebase';
 import { useAuthStore } from '@/src/features/auth/store/useAuthStore';
 import {
   useTasks,
@@ -105,14 +103,9 @@ export default function TasksPage() {
     setSelectedTask(null);
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      logout();
-      router.push('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
   };
 
   // Filter tasks based on selected filter
@@ -140,9 +133,6 @@ export default function TasksPage() {
 
   // Get user initials for avatar
   const getUserInitials = () => {
-    if (user?.displayName) {
-      return user.displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-    }
     if (user?.email) {
       return user.email[0].toUpperCase();
     }
@@ -185,9 +175,6 @@ export default function TasksPage() {
                       {getUserInitials()}
                     </div>
                     <div className={styles.userDetails}>
-                      {user?.displayName && (
-                        <p className={styles.userName}>{user.displayName}</p>
-                      )}
                       <p className={styles.userEmail}>{user?.email}</p>
                     </div>
                   </div>

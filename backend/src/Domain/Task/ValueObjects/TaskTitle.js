@@ -7,7 +7,8 @@ class TaskTitle {
         if (title.length > 500) {
             throw new Error('Task title must not exceed 500 characters.');
         }
-        this.title = title;
+        this.value = title;
+        Object.freeze(this);
     }
 }
 

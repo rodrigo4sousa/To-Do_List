@@ -1,4 +1,5 @@
-const admin = require('../../../Infrastructure/Auth/firebase');
+const { verifyToken } = require('../../../Infrastructure/Auth/jwt');
+
 
 module.exports = async function authMiddleware(req, res, next) {
   const header = req.headers.authorization;
@@ -10,14 +11,17 @@ module.exports = async function authMiddleware(req, res, next) {
   const token = header.split(' ')[1];
 
   try {
-    const decoded = await admin.auth().verifyIdToken(token);
+    // Verify JWT token
+    const decoded = verifyToken(token);
 
     req.user = {
-      uid: decoded.uid || decoded.sub,
+      uid: decoded.userId,
       email: decoded.email,
     };
+    
     next();
-  } catch {
+  } catch (error) {
+    console.error('Token verification failed:', error.message);
     res.status(401).json({ error: 'Invalid or expired token' });
   }
-}
+};

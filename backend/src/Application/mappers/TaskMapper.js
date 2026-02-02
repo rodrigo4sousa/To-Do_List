@@ -9,9 +9,9 @@ class TaskMapper {
     static toDto(task) {
         if (!task) return null;
         return new TaskDto({
-            id: task.id.id,
-            title: task.title.title,
-            completed: task.completed.isCompleted
+            id: task.id.value,
+            title: task.title.value,
+            completed: task.completed.value
         });
     }
 }

@@ -1,9 +1,12 @@
-import { getAuthToken } from '../firebase/auth';
-
 const API_BASE_URL = 'http://localhost:3001';
 
+function getAuthToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('auth_token');
+}
+
 async function withAuthHeaders(extraHeaders: HeadersInit = {}) {
-  const token = await getAuthToken();
+  const token = getAuthToken();
 
   if (!token) {
     throw new Error('User not authenticated');

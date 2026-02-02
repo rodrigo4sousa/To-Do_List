@@ -7,29 +7,35 @@ const TaskDataMapper = {
     
     toDomain(data) {
         if (!data) return null;
+        let userId;
+        try {
+            userId = new UserId(data.userId);
+        } catch {
+            userId = new UserId();
+        }
         return new Task(
             data._id,
             new TaskTitle(data.title),
             new TaskCompleted(data.completed),
-            new UserId(data.userId)
+            userId
         );
     },
 
     
     toDataModel(task) {
         return {
-            _id: task.id.id, 
-            title: task.title.title,
-            completed: task.completed.isCompleted,
-            userId: task.userId.id
+            _id: task.id.value, 
+            title: task.title.value,
+            completed: task.completed.value,
+            userId: task.userId.value
         };
     },
 
 
     toExistingDataModel(task) {
         return {
-            title: task.title.title,
-            completed: task.completed.isCompleted
+            title: task.title.value,
+            completed: task.completed.value
         };
     }
 };

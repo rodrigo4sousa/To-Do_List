@@ -13,14 +13,14 @@ class TaskRepository extends TaskRepositoryInterface {
 	}
 
 	async findByUserId(userId) {
-		const models = await TaskDataModel.find({ userId });
+		const models = await TaskDataModel.find({ userId: userId });
 		return models.map(model => TaskDataMapper.toDomain(model));
 	}
 
 	async update(task) {
 		const data = TaskDataMapper.toExistingDataModel(task);
 		const updated = await TaskDataModel.findByIdAndUpdate(
-			task.id.id,
+			task.id.value,
 			data,
 			{ new: true }
 		);

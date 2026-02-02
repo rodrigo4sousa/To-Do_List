@@ -35,7 +35,7 @@ class TaskService {
         const task = await this.taskRepository.findById(taskId);
         if (!task) return null;
 
-        await this.taskRepository.delete(task.id.id);
+        await this.taskRepository.delete(task.id.value);
         return true;
     }
 }
