@@ -1,28 +1,67 @@
-import { AuthService, User, AuthResponse } from '../services/AuthService';
+import { User, AuthResponse } from '../models/User';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
+/**
+ * AuthRepository - Handles all HTTP communication with the backend auth API
+ * This is the data layer that communicates directly with the backend
+ */
 export class AuthRepository {
-  async login(email: string, password: string): Promise<AuthResponse> {
-    return AuthService.login(email, password);
-  }
-
+  /**
+   * Register a new user via backend API
+   */
   async register(email: string, password: string, name?: string): Promise<AuthResponse> {
-    return AuthService.register(email, password, name);
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, name }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Registration failed');
+    }
+
+    return response.json();
   }
 
-  async logout(): Promise<void> {
-    AuthService.logout();
+  /**
+   * Login user via backend API
+   */
+  async login(email: string, password: string): Promise<AuthResponse> {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Login failed');
+    }
+
+    return response.json();
   }
 
-  async getCurrentUser(): Promise<User | null> {
-    return AuthService.getCurrentUser();
-  }
+  /**
+   * Verify token validity with backend (optional endpoint if backend supports it)
+   */
+  async verifyToken(token: string): Promise<User> {
+    const response = await fetch(`${API_BASE_URL}/auth/verify`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  getToken(): string | null {
-    return AuthService.getToken();
-  }
+    if (!response.ok) {
+      throw new Error('Invalid token');
+    }
 
-  isAuthenticated(): boolean {
-    return AuthService.isAuthenticated();
+    return response.json();
   }
 }
 

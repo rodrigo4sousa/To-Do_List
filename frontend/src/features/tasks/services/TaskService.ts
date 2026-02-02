@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { TaskRepository, Task, CreateTaskData } from '../repositories/TaskRepository';
+import { TaskRepository } from '../repositories/TaskRepository';
+import { Task, CreateTaskData } from '../models/Task';
 
 const taskRepository = new TaskRepository();
 
@@ -10,7 +11,6 @@ export const useTasks = (enabled: boolean) => {
     enabled,
   });
 };
-
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
@@ -41,3 +41,5 @@ export const useDeleteTask = () => {
     },
   });
 };
+
+

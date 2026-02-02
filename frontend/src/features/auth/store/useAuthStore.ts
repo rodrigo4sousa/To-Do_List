@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { User } from '../services/AuthService';
+import { User } from '../models/User';
 
 interface AuthState {
   user: User | null;

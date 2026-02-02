@@ -1,14 +1,5 @@
 import { api } from '../../../shared/api/http';
-
-export interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
-
-export interface CreateTaskData {
-  title: string;
-}
+import { Task, CreateTaskData } from '../models/Task';
 
 export class TaskRepository {
   async getTasks(): Promise<Task[]> {
@@ -27,3 +18,4 @@ export class TaskRepository {
     return api.delete(`/tasks/${id}`);
   }
 }
+

@@ -1,15 +1,6 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { authRepository } from '../repositories/AuthRepository';
+import { User, AuthResponse } from '../models/User';
 
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-}
-
-export interface AuthResponse {
-  token: string;
-  user: User;
-}
 
 export class AuthService {
   private static TOKEN_KEY = 'auth_token';
@@ -19,22 +10,13 @@ export class AuthService {
    * Register a new user
    */
   static async register(email: string, password: string, name?: string): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password, name }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Registration failed');
-    }
-
-    const data: AuthResponse = await response.json();
+    // Use repository to communicate with backend
+    const data = await authRepository.register(email, password, name);
+    
+    // Store token and user locally
     this.setToken(data.token);
     this.setUser(data.user);
+    
     return data;
   }
 
@@ -42,22 +24,13 @@ export class AuthService {
    * Login user
    */
   static async login(email: string, password: string): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Login failed');
-    }
-
-    const data: AuthResponse = await response.json();
+    // Use repository to communicate with backend
+    const data = await authRepository.login(email, password);
+    
+    // Store token and user locally
     this.setToken(data.token);
     this.setUser(data.user);
+    
     return data;
   }
 
@@ -72,7 +45,7 @@ export class AuthService {
   }
 
   /**
-   * Get current user
+   * Get current user from localStorage
    */
   static getCurrentUser(): User | null {
     if (typeof window === 'undefined') return null;
@@ -88,7 +61,7 @@ export class AuthService {
   }
 
   /**
-   * Get stored token
+   * Get stored token from localStorage
    */
   static getToken(): string | null {
     if (typeof window === 'undefined') return null;
@@ -119,11 +92,9 @@ export class AuthService {
   static isAuthenticated(): boolean {
     return !!this.getToken();
   }
-}
 
-/**
- * Simple Authentication Helper Functions (No Firebase)
- */
+  
+}
 
 /**
  * Login with Email and Password
