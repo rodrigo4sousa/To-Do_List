@@ -9,7 +9,7 @@ import {
   useCompleteTask,
   useDeleteTask,
 } from '../../features/tasks/services/TaskService';
-import { Task } from '../../features/tasks/repositories/TaskRepository';
+import { Task } from '@/src/features/tasks/models/Task';
 import styles from './tasks.module.css';
 
 type FilterType = 'all' | 'pending' | 'completed';
